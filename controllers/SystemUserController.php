@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Venta;
-use app\models\VentaSearch;
+use app\models\SystemUser;
+use app\models\SystemUserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * VentaController implements the CRUD actions for Venta model.
+ * SystemUserController implements the CRUD actions for SystemUser model.
  */
-class VentaController extends Controller
+class SystemUserController extends Controller
 {
     /**
      * @inheritdoc
@@ -26,7 +26,7 @@ class VentaController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-            'access' => [
+             'access' => [
                 'class' =>\yii\filters\AccessControl::className(),
                 'only' => ['index','update','create','view','delete'],
                 'rules' => [
@@ -51,12 +51,12 @@ class VentaController extends Controller
     }
 
     /**
-     * Lists all Venta models.
+     * Lists all SystemUser models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new VentaSearch();
+        $searchModel = new SystemUserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -66,7 +66,7 @@ class VentaController extends Controller
     }
 
     /**
-     * Displays a single Venta model.
+     * Displays a single SystemUser model.
      * @param integer $id
      * @return mixed
      */
@@ -78,25 +78,25 @@ class VentaController extends Controller
     }
 
     /**
-     * Creates a new Venta model.
+     * Creates a new SystemUser model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Venta();
+        $model = new SystemUser();
 
-        $model->fecha=date("y-m-d");
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idVenta]);
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Updates an existing Venta model.
+     * Updates an existing SystemUser model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,16 +106,16 @@ class VentaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idVenta]);
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
-     * Deletes an existing Venta model.
+     * Deletes an existing SystemUser model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -128,18 +128,18 @@ class VentaController extends Controller
     }
 
     /**
-     * Finds the Venta model based on its primary key value.
+     * Finds the SystemUser model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Venta the loaded model
+     * @return SystemUser the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Venta::findOne($id)) !== null) {
+        if (($model = SystemUser::findOne($id)) !== null) {
             return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

@@ -26,6 +26,27 @@ class ProductoController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+             'access' => [
+                'class' =>\yii\filters\AccessControl::className(),
+                'only' => ['index','update','create','view','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index','update','create','view','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule,$action){
+                            return \app\models\Systemuser::isUserAmin(Yii::$app->user->identity->username);
+                        }
+                    ],[
+                        'actions' => ['index','update','create','view','delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule,$action){
+                            return \app\models\Systemuser::isUserSuperAmin(Yii::$app->user->identity->username);
+                        }
+                    ],
+                ],
+            ],
         ];
     }
 
