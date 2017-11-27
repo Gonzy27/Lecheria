@@ -33,7 +33,7 @@ use app\models\Cliente;
 
   <?php
     echo $form->field($model, 'idCliente')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map(Cliente::find()->all(),'id','id','nombre'),
+    'data' => ArrayHelper::map(Cliente::find()->all(),'id','nombre'),
         
     'language' => 'es',
     'options' => ['placeholder' => 'Selecciona un cliente'],
