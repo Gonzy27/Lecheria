@@ -5,11 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-<<<<<<< HEAD
     'language' => 'es',
-=======
-    'name' => 'Productos Lacteos',
->>>>>>> 42101d213ff353b7ebe4a10e8d3ed3d87f8a0604
     'basePath' => dirname(__DIR__),
     'language' => 'es',
     'bootstrap' => ['log'],
