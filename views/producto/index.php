@@ -24,12 +24,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'idProducto',
-            'nombre',
-            'detalle',
-            'stock',
-            'precio',
+            [
+            'attribute'=>'idProducto',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+               [
+            'attribute'=>'nombre',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+            [
+            'attribute'=>'detalle',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],[
+            'attribute'=>'stock',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+                'value'=> function ($model){
+                    return number_format($model->stock)."";
+                }
+            ],[
+            'attribute'=>'precio',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+                'value'=> function ($model){
+                    return "$".number_format($model->precio);
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

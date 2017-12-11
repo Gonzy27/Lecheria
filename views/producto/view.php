@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="producto-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= "Código del producto:".Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->idProducto], ['class' => 'btn btn-primary']) ?>
@@ -30,9 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'idProducto',
             'nombre',
-            'detalle',
-            'stock',
-            'precio',
+            'detalle',[
+                'attribute' => 'stock',
+                'value' => "".number_format($model->stock)
+        
+             ],[
+                'attribute' => 'precio',
+                'value' => "$".number_format($model->precio)
+        
+             ],
         ],
     ]) ?>
 

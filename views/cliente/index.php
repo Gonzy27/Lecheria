@@ -14,6 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+   
 
     <p>
         <?= Html::a('Crear Cliente', ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,15 +26,38 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'rut',
-            'nombre',
-            'apellidoPaterno',
-            'apellidoMaterno',
-            //'telefono',
+           [
+            'attribute'=>'id',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+           [
+            'attribute'=>'rut',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+            [
+            'attribute'=>'nombre',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+            [
+            'attribute'=>'apellidoPaterno',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],[
+            'attribute'=>'apellidoPaterno',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],//'telefono',
             //'email:email',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+     
+    <div align="right"><p>
+        <?= Html::a('Reporte', ['report'], ['class' => 'btn btn-success']) ?>
+    </p></div>
+    
 </div>

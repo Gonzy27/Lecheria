@@ -25,10 +25,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idVenta',
-            'fecha',
-            'idCliente',
-
+            [
+            'attribute'=>'idVenta',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ], [
+            'attribute'=>'fecha',
+              'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+            ],
+           // 'idCliente',
+            [
+                'attribute' => 'cliente',
+                'value' => 'cliente.nombre',
+           'contentOptions'=>['class' =>'text-center'],
+              'headerOptions'=>['class' =>'text-center'],  
+             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

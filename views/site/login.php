@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Por favor, complete los siguientes para acceder al sistema:</p>
+    <p>Por favor, complete los siguientes campos para acceder al sistema:</p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
@@ -40,7 +40,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php ActiveForm::end(); ?>
 
-    <div class="col-lg-offset-1" style="color:#999;">
     
-    </div>
 </div>
