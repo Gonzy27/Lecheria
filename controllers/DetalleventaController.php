@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Detalleventa;
 use app\models\DetalleventaSearch;
+use app\models\Producto;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,13 +13,12 @@ use yii\filters\VerbFilter;
 /**
  * DetalleventaController implements the CRUD actions for Detalleventa model.
  */
-class DetalleventaController extends Controller
-{
+class DetalleventaController extends Controller {
+
     /**
      * @inheritdoc
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,14 +33,13 @@ class DetalleventaController extends Controller
      * Lists all Detalleventa models.
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         $searchModel = new DetalleventaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -49,10 +48,9 @@ class DetalleventaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -61,19 +59,21 @@ class DetalleventaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id)
-    {
+    public function actionCreate($id) {
         $model = new Detalleventa();
-        $model->idVenta=$id;
-        $model->precioFinal=0;
-        
+        $model->idVenta = $id;
+        $model->precioFinal = 0;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $model->precioFinal=$model->producto->precio*$model->cantidad;
+            $model->precioFinal = $model->producto->precio * $model->cantidad;
+            $producto = Producto::findOne($model->idProducto);
+            $producto->stock=$producto->stock-$model->cantidad;
+            $producto->save();
             $model->save();
             return $this->redirect(['venta/view', 'id' => $model->idVenta]);
         }
         return $this->renderAjax('create', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -83,8 +83,7 @@ class DetalleventaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -92,7 +91,7 @@ class DetalleventaController extends Controller
         }
 
         return $this->render('update', [
-            'model' => $model,
+                    'model' => $model,
         ]);
     }
 
@@ -102,8 +101,7 @@ class DetalleventaController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,12 +114,12 @@ class DetalleventaController extends Controller
      * @return Detalleventa the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Detalleventa::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }
