@@ -7,13 +7,14 @@ use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Venta */
 
+use app\models\DetalleventaSearch;
 $this->title = $model->idVenta;
 $this->params['breadcrumbs'][] = ['label' => 'Ventas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-view">
 
-    <h1><?="Codigo de la Venta:". Html::encode($this->title) ?></h1>
+    <h1><?="Código de la Venta:". Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->idVenta], ['class' => 'btn btn-primary']) ?>
@@ -71,11 +72,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             
-            'idDetalle',
-            'idVenta',
-            'idProducto',
-            'cantidad',
-            'precioFinal',
+            //'idDetalle',
+            [
+                'attribute' => 'Producto',
+                'value' => 'producto.nombre',       
+            ],
+            [
+                'attribute' => 'cantidad',
+                'footer' => 'Total',       
+            ],[
+                'attribute' => 'precioFinal',
+                'footer' =>'$'.number_format(DetalleventaSearch::getTotal($dataProvider2->models,'precioFinal')), 
+                'value'=> function ($model){
+                    return '$'.number_format($model->precioFinal)."";
+                }   
+            ],
+          
 
         ],
     ]); ?>

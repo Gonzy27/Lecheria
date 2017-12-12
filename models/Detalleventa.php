@@ -68,4 +68,5 @@ class Detalleventa extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Producto::className(), ['idProducto' => 'idProducto']);
     }
+    
 }

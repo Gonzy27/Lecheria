@@ -10,23 +10,21 @@ use app\models\Detalleventa;
 /**
  * DetalleventaSearch represents the model behind the search form of `app\models\Detalleventa`.
  */
-class DetalleventaSearch extends Detalleventa
-{
+class DetalleventaSearch extends Detalleventa {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['idDetalle', 'idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'integer'],
+                [['idDetalle', 'idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'integer'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,8 +36,7 @@ class DetalleventaSearch extends Detalleventa
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Detalleventa::find();
 
         // add conditions that should always apply here
@@ -67,4 +64,15 @@ class DetalleventaSearch extends Detalleventa
 
         return $dataProvider;
     }
+
+    public static function getTotal($provider,$fieldName) {
+        $total = 0;
+
+        foreach ($provider as $item) {
+            $total += $item[$fieldName];
+        }
+
+        return $total;
+    }
+
 }
