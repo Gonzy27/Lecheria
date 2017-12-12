@@ -58,3 +58,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 </div>
+<div align="right"><p>
+        <?= Html::a('Reporte', ['report'], ['class' => 'btn btn-success']) ?>
+    </p></div>
