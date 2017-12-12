@@ -11,6 +11,7 @@ use Yii;
  * @property int $idVenta
  * @property int $idProducto
  * @property int $cantidad
+ * @property int $precioFinal
  *
  * @property Venta $venta
  * @property Producto $producto
@@ -31,9 +32,8 @@ class Detalleventa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idDetalle', 'idVenta', 'idProducto', 'cantidad'], 'required'],
-            [['idDetalle', 'idVenta', 'idProducto', 'cantidad'], 'integer'],
-            [['idDetalle'], 'unique'],
+            [['idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'required'],
+            [['idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'integer'],
             [['idVenta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['idVenta' => 'idVenta']],
             [['idProducto'], 'exist', 'skipOnError' => true, 'targetClass' => Producto::className(), 'targetAttribute' => ['idProducto' => 'idProducto']],
         ];
@@ -49,6 +49,7 @@ class Detalleventa extends \yii\db\ActiveRecord
             'idVenta' => 'Id Venta',
             'idProducto' => 'Id Producto',
             'cantidad' => 'Cantidad',
+            'precioFinal' => 'Precio Final',
         ];
     }
 

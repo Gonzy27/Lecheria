@@ -5,9 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Venta;
 use app\models\VentaSearch;
+use app\models\Detalleventa;
+use app\models\DetalleventaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Systemuser;
 
 /**
  * VentaController implements the CRUD actions for Venta model.
@@ -65,15 +68,20 @@ class VentaController extends Controller
         ]);
     }
 
-    /**
+     /**
      * Displays a single Venta model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
+        $searchModel = new DetalleventaSearch();
+        $searchModel->idVenta=$id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel2' => $searchModel,
+            'dataProvider2' => $dataProvider,
         ]);
     }
 

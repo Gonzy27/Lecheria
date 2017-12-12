@@ -26,27 +26,6 @@ class DetalleventaController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
-             'access' => [
-                'class' =>\yii\filters\AccessControl::className(),
-                'only' => ['index','update','create','view','delete'],
-                'rules' => [
-                    [
-                         'actions' => ['index','update','create','view','delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule,$action){
-                            return \app\models\Systemuser::isUserAmin(Yii::$app->user->identity->username);
-                        }
-                    ],[
-                        'actions' => ['index','update','create','view','delete'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function ($rule,$action){
-                            return \app\models\Systemuser::isUserSuperAmin(Yii::$app->user->identity->username);
-                        }
-                    ],
-                ],
-            ],
         ];
     }
 
@@ -69,6 +48,7 @@ class DetalleventaController extends Controller
      * Displays a single Detalleventa model.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
@@ -90,7 +70,7 @@ class DetalleventaController extends Controller
             return $this->redirect(['view', 'id' => $model->idDetalle]);
         }
 
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' => $model,
         ]);
     }
@@ -100,6 +80,7 @@ class DetalleventaController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
@@ -119,6 +100,7 @@ class DetalleventaController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
     {

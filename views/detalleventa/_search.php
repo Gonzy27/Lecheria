@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'cantidad') ?>
 
+    <?= $form->field($model, 'precioFinal') ?>
+
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

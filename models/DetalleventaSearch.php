@@ -18,7 +18,7 @@ class DetalleventaSearch extends Detalleventa
     public function rules()
     {
         return [
-            [['idDetalle', 'idVenta', 'idProducto', 'cantidad'], 'integer'],
+            [['idDetalle', 'idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'integer'],
         ];
     }
 
@@ -62,6 +62,7 @@ class DetalleventaSearch extends Detalleventa
             'idVenta' => $this->idVenta,
             'idProducto' => $this->idProducto,
             'cantidad' => $this->cantidad,
+            'precioFinal' => $this->precioFinal,
         ]);
 
         return $dataProvider;
