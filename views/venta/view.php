@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-view">
 
-    <h1><?="Codigo del producto:". Html::encode($this->title) ?></h1>
+    <h1><?="Codigo de la Venta:". Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->idVenta], ['class' => 'btn btn-primary']) ?>
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
-   <?= Html::button('Agregar Producto', ['id' => 'modelButton', 'value' => \yii\helpers\Url::to(['detalleventa/create']), 'class' => 'btn btn-success']) ?>
+   <?= Html::button('Agregar Producto', ['id' => 'modelButton', 'value' => \yii\helpers\Url::to(['detalleventa/create', 'id' => $model->idVenta]), 'class' => 'btn btn-success']) ?>
     <?php
         Modal::begin([
             'header' => '<h2>Detalle de Venta</h2>',
@@ -77,7 +77,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'cantidad',
             'precioFinal',
 
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     
