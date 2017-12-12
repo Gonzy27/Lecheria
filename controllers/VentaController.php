@@ -52,6 +52,20 @@ class VentaController extends Controller
             ],
         ];
     }
+    
+    
+  public function actionResumen(){
+        //muestra el resumen de venta diaria..
+        //obtenemos la fecha de hoy...
+        $searchModel = new VentaSearch();
+        $searchModel->fecha=date('Y-m-d');
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return $this->render('ventasDiarias', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+        
+    }
 
     /**
      * Lists all Venta models.

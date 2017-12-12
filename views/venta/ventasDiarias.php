@@ -29,12 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'header'=>'Rut Cliente',
-                'value'=>'cliente'
+                'value'=>'cliente.rut'
             ],
             [
                 'header' => 'nombre cliente',
                 'value' => function($model){
-                    return $model->cliente0->nombre." ".$model->cliente0->apellido;
+                    return $model->cliente->nombre." ".$model->cliente->apellidoPaterno;
                 },
                 'footer' => '<center><b>Total: </b></center>',  
             ],
@@ -42,7 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
              [
                 'header'=>'Monto Total Venta',
                 'value'=>function($model){
-                    return 0;
+                    $total = 0;
+
+                        foreach ($model->detalleventas as $item) {
+                            $total += $item['precioFinal'];
+                        }
+
+                        return $total;
                 },
                  'footer'=>'0'
             ]

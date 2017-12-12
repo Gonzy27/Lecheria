@@ -54,7 +54,11 @@ AppAsset::register($this);
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Cliente', 'url' => ['/cliente']],
             ['label' => 'Producto', 'url' => ['/producto']],
-            ['label' => 'Venta', 'url' => ['/venta']],  
+            ['label' => 'Venta', 'url' => ['/venta'], 'items' => [
+                        ['label' => 'Administrar Ventas', 'url' => ['venta/index']],
+                        ['label' => 'Ventas diarias', 'url' => ['venta/resumen']],
+                        ]
+             ],
               
                     '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
