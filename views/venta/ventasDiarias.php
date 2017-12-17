@@ -48,9 +48,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             $total += $item['precioFinal'];
                         }
 
-                        return $total;
+                        return '$'.number_format($total);
                 },
-                 'footer'=>'0'
+                 'footer'=>'$'.number_format(0)
             ]
                 
         ],

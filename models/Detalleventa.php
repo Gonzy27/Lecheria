@@ -36,12 +36,18 @@ class Detalleventa extends \yii\db\ActiveRecord
             [['idVenta', 'idProducto', 'cantidad', 'precioFinal'], 'integer'],
             [['idVenta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['idVenta' => 'idVenta']],
             [['idProducto'], 'exist', 'skipOnError' => true, 'targetClass' => Producto::className(), 'targetAttribute' => ['idProducto' => 'idProducto']],
+            [['cantidad'],'stockVal'],
         ];
     }
 
     /**
      * @inheritdoc
      */
+    public function stockVal($attribute, $params) {
+        
+        if ($this->cantidad > $this->producto->stock)
+            $this->addError('cantidad', 'La cantidad no debe ser mayor al stock');
+    }
     public function attributeLabels()
     {
         return [

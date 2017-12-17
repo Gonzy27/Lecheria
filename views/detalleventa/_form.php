@@ -16,7 +16,7 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 <?php
     echo $form->field($model, 'idProducto')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map(app\models\Producto::find()->all(),'idProducto','nombre'),
+    'data' => ArrayHelper::map(app\models\Producto::findBySql('select * from producto where stock>0')->all(),'idProducto','nombre','stock'),
         
     'language' => 'es',
     'options' => ['placeholder' => 'Selecciona un producto'],
