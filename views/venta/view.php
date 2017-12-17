@@ -92,5 +92,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
     
+<div align="right"><p>
+        <?= Html::a('Factura', ['factura','id'=>$model->idVenta], ['class' => 'btn btn-success']) ?>
+    </p></div>  
 </div>
     

@@ -47,6 +47,9 @@ class Detalleventa extends \yii\db\ActiveRecord
         
         if ($this->cantidad > $this->producto->stock)
             $this->addError('cantidad', 'La cantidad no debe ser mayor al stock');
+        
+        if ($this->cantidad <= 0)
+            $this->addError('cantidad', 'La cantidad debe ser mayor a 0');
     }
     public function attributeLabels()
     {

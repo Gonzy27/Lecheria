@@ -98,6 +98,47 @@ class VentaController extends Controller
             'dataProvider2' => $dataProvider,
         ]);
     }
+    public function actionFactura($id)
+    {
+        $searchModel = new DetalleventaSearch();
+        $searchModel->idVenta=$id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+          
+   
+    $content = $this->renderPartial('factura',[
+         'model' => $this->findModel($id),
+         'searchModel2' => $searchModel,
+         'dataProvider2' => $dataProvider,
+    ]);
+    // setup kartik\mpdf\Pdf component
+    $pdf = new Pdf([
+        // set to use core fonts only
+        'mode' => Pdf::MODE_UTF8, 
+        // A4 paper format
+        //'format' => Pdf::FORMAT_A4, 
+        // portrait orientation
+        //'orientation' => Pdf::ORIENT_PORTRAIT, 
+        // stream to browser inline
+       // 'destination' => Pdf::DEST_BROWSER, 
+        // your html content input
+        'content' => $content,  
+        // format content from your own css file if needed or use the
+        // enhanced bootstrap css built by Krajee for mPDF formatting 
+        'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+        // any css to be embedded if required
+        'cssInline' => '.kv-heading-1{font-size:18px}', 
+         // set mPDF properties on the fly
+        'options' => ['title' => 'Lecheria Hanamichi'],
+         // call mPDF methods on the fly
+        'methods' => [ 
+            'SetHeader'=>['Lecheria'], 
+            'SetFooter'=>['Hanamichi'],
+        ]
+    ]);
+     return $pdf->render(); 
+    
+    }
 
     /**
      * Creates a new Venta model.
