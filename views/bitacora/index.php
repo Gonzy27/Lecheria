@@ -15,10 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Bitacora', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
+    
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -30,9 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'fecha',
             'old_stock',
             'new_stock',
-            //'observaciones',
+            'observaciones',
 
-            ['class' => 'yii\grid\ActionColumn'],
+           
         ],
     ]); ?>
+    <div align="right"><p>
+        <?= Html::a('Reporte', ['report'], ['class' => 'btn btn-success']) ?>
+    </p></div>  
 </div>
+
