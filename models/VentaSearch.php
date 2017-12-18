@@ -66,4 +66,28 @@ class VentaSearch extends Venta
 
         return $dataProvider;
     }
+    
+    public static function getTotalDetalleValor($model){
+        //recive un provider de detalle de compra....
+        $total = 0;
+        foreach ($model->detalleventas as $item) {
+                $total += $item['precioFinal'];
+        }
+
+         return $total;
+    }
+    
+     
+    
+    public static function getTotalDetalleDiarias(){
+         //obtengo todas las compras
+        $ventas=Venta::find()->where(['fecha'=>date('Y-m-d')])->all();
+        $sumatoria=0;
+        foreach($ventas as $venta){
+            foreach($venta->detalleventas as $detalle){
+               $sumatoria=$sumatoria+($detalle->precioFinal);   
+            }
+        }
+        return $sumatoria;
+    }
 }
