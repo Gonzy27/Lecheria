@@ -87,8 +87,39 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '$'.number_format($model->precioFinal)."";
                 }   
             ],
-          
+            [  
+                'class' => 'yii\grid\ActionColumn',
+              'header' => 'Acciones',
+              'headerOptions' => ['style' => 'color:#337ab7'],
+              'template' => '{update}{delete}',
+              'buttons' => [
+                'update' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('app', 'lead-update'),
+                    ]);
+                },
+                'delete' => function ($url, $model) {
+                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'title' => Yii::t('app', 'lead-delete'),
+                                'data-confirm' => Yii::t('yii', '¿Está seguro de eliminar este elemento?'),
+                                'data-method'  => 'post',
+                    ]);
+                }
 
+              ],
+              'urlCreator' => function ($action, $model, $key, $index) {
+
+                if ($action === 'update') {
+                    $url ='index.php?r=client-login/lead-update&id='.$model->idVenta;
+                    return \yii\helpers\Url::to(['detalleventa/update', 'id' => $model->idDetalle]);
+                }
+                if ($action === 'delete') {
+                    $url ='http://localhost/lecheria/web/index.php?r=detalleventa%2Fdelete&id='.$model->idDetalle;
+                    return \yii\helpers\Url::to(['detalleventa/delete', 'id' => $model->idDetalle]);
+                }
+
+              }
+            ],
         ],
     ]); ?>
     
