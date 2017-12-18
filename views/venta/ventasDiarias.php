@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\VentaSearch;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\CompraSearch */
@@ -41,18 +42,17 @@ $this->params['breadcrumbs'][] = $this->title;
             
              [
                 'header'=>'Monto Total Venta',
+                'attribute' => 'precioFinal',
                 'value'=>function($model){
-                    $total = 0;
-
-                        foreach ($model->detalleventas as $item) {
-                            $total += $item['precioFinal'];
-                        }
-
-                        return '$'.number_format($total);
+                    return "$".number_format(VentaSearch::getTotalDetalleValor($model));
                 },
-                 'footer'=>'$'.number_format(0)
+                 'footer'=>"$".number_format(VentaSearch::getTotalDetalleDiarias()),
             ]
                 
         ],
     ]); ?>
+    
+    <div align="right"><p>
+        <?= Html::a('Factura', ['facturadiaria'], ['class' => 'btn btn-success']) ?>
+    </p></div>  
 </div>
