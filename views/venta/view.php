@@ -82,7 +82,9 @@ $this->params['breadcrumbs'][] = $this->title;
             //'idDetalle',
             [
                 'attribute' => 'Producto',
-                'value' => 'producto.nombre',       
+                'value' =>   function ($model){
+                    return $model->producto->nombre." ".$model->producto->detalle."";
+                }        
             ],
             [
                 'attribute' => 'cantidad',
