@@ -85,9 +85,14 @@ class DetalleventaController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idDetalle]);
+            $model->precioFinal = 0;
+            $model->precioFinal = $model->producto->precio * $model->cantidad;
+            $producto = Producto::findOne($model->idProducto);
+            $producto->stock=$producto->stock-$model->cantidad;
+            $producto->save();
+            $model->save();
+            return $this->redirect(['venta/view', 'id' => $model->idVenta]);
         }
 
         return $this->render('update', [
@@ -101,10 +106,10 @@ class DetalleventaController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id) {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+  public function actionDelete($id) {
+        $model = $this->findModel($id);
+        $model->delete();
+        return $this->redirect(['venta/view', 'id' => $model->idVenta]);
     }
 
     /**
