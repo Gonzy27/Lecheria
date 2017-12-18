@@ -61,9 +61,19 @@ class DetalleventaController extends Controller {
      */
     public function actionCreate($id) {
         $model = new Detalleventa();
+        
         $model->idVenta = $id;
         $model->precioFinal = 0;
-
+        $detalleVenta=Null;
+        if ($model->load(Yii::$app->request->post())){
+            $detalleVenta = \app\models\Detalleventa::findBySql("Select * from DetalleVenta d where d.idProducto = ".$model->idProducto." and  d.idVenta = ". $model->idVenta)->one();
+        }
+        if($detalleVenta!=NULL){
+            $producto = Producto::findOne($detalleVenta->idProducto);
+            $producto->stock=$producto->stock+$detalleVenta->cantidad;
+              $producto->save();
+             $model = $this->findModel($detalleVenta->idDetalle);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->precioFinal = $model->producto->precio * $model->cantidad;
             $producto = Producto::findOne($model->idProducto);

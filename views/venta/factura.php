@@ -22,16 +22,21 @@ use app\models\DetalleventaSearch;
     <link href="view/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <div id="page-wrapper">
-    
+    <center><div class="panel panel-default">
+                 <div  class="panel-heading text-center">
+                        Factura Elecrónica N° <?php echo $model->idVenta; ?>
+                        </div>
+                       </div>
+                           </center>
           <table>
               <tr><th>RUT Cliente: </th><td><?php echo $model->cliente->rut; ?></td><i></i>
                <th>RUT Proveedor: </th><td>78.876.345-5</td></tr>      
-              <tr><th>Nombre Cliente: </th><td><?php echo  $model->cliente->nombre." ".$model->cliente->apellidoPaterno." ".$model->cliente->apellidoMaterno; ?></td>
+              <tr><th>Nombre Cliente: </th><td><?php echo  $model->cliente->nombre." ".$model->cliente->apellidoPaterno." ".$model->cliente->apellidoMaterno."&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"; ?></td>
                   <th>Nombre Proveedor: </th><td>Lechería Hanamichi LTDA.</td></tr>
               <tr><th>Email Cliente: </th><td><?php echo $model->cliente->email; ?></td>
                <th>Email Proveedor: </th><td>contacto@hanamichi.cl</td></tr>      
-              <tr><th>Telefono Cliente: </th><td><?php echo $model->cliente->telefono; ?></td>
-               <th>Telefono Proveedor: </th><td>999366977</td></tr>
+              <tr><th>Teléfono Cliente: </th><td><?php echo $model->cliente->telefono; ?></td>
+               <th>Teléfono Proveedor: </th><td>999366977</td></tr>
           </table>
         
                    <center><div class="panel panel-default">
@@ -47,8 +52,8 @@ use app\models\DetalleventaSearch;
                                 <thead>
                                     <tr>
                                         <th>Nombre Producto</th>
-                                        <th>Cantidad</th>
-                                        <th>Precio Final</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th class="text-center">Precio Final</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,17 +62,16 @@ use app\models\DetalleventaSearch;
                                     foreach ($model->detalleventas as $value):  ?>
                                         <tr class="odd gradeA">
                                             
-                                            <td><?php echo $value->producto->nombre; ?></td>
-                                            <td><?php echo $value->cantidad ?></td>
-                                            <td><?php echo '$'.number_format($value->precioFinal) ?></td>
+                                            <td><?php echo $value->producto->nombre." " . $value->producto->detalle; ?></td>
+                                            <td class="text-center"><?php echo $value->cantidad ?></td>
+                                            <td class="text-center"><?php echo '$'.number_format($value->precioFinal) ?></td>
                                      </tr>
                                     <?php endforeach; ?>
 
                                 </tbody>
                                 <tfoot>
-                                    <tr><td></td><th>Total a Pagar: </th><th><?php echo '$'.number_format(DetalleventaSearch::getTotal($dataProvider2->models,'precioFinal')); ?></th></tr>
-                      
-                                </tfoot>
+                                    <tr><td></td><th class="text-center">Total a Pagar: </th><th class="text-center"><?php echo '$'.number_format(DetalleventaSearch::getTotal($dataProvider2->models,'precioFinal')); ?></th></tr>
+                                 </tfoot>
                             </table>
                         
                        

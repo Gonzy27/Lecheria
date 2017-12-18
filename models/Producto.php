@@ -33,6 +33,8 @@ class Producto extends \yii\db\ActiveRecord
         return [
             [['nombre', 'detalle', 'stock', 'precio'], 'required'],
             [['stock', 'precio'], 'integer'],
+            [['stock'],'mayor'],
+            [['precio'],'mayor'],
             [['nombre'], 'string', 'max' => 45],
             [['detalle'], 'string', 'max' => 80],
         ];
@@ -41,6 +43,15 @@ class Producto extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
+    public function mayor($attribute, $params) {
+        
+        
+        if ($this->stock < 0)
+            $this->addError('stock', 'La cantidad debe ser mayor o igual a 0');
+        if ($this->precio <= 0)
+            $this->addError('precio', 'La cantidad debe ser mayor a 0');
+    }
     public function attributeLabels()
     {
         return [

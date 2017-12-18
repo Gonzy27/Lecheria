@@ -8,13 +8,13 @@ use yii\grid\GridView;
 /* @var $model app\models\Venta */
 
 use app\models\DetalleventaSearch;
-$this->title = $model->idVenta;
+$this->title = "Venta N° ".$model->idVenta;
 $this->params['breadcrumbs'][] = ['label' => 'Ventas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-view">
 
-    <h1><?="Código de la Venta:". Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->idVenta], ['class' => 'btn btn-primary']) ?>
