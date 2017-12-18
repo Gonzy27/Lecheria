@@ -40,9 +40,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Nosotros', 'url' => ['/site/about']],
-            ['label' => 'Contacto', 'url' => ['/site/contact']],
-                ['label' => 'Inicio Sesión', 'url' => ['/site/login']]
+            ['label' => 'Inicio Sesión', 'url' => ['/site/login']]
                  ],
             ]);
            
