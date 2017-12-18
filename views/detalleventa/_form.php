@@ -20,9 +20,9 @@ use yii\helpers\ArrayHelper;
     //    'enableAjaxValidation' => true,
     'id' => 'someform'
     ]); ?>
-<?php
+<?php 
     echo $form->field($model, 'idProducto')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map(app\models\Producto::findBySql('select * from producto where stock>0')->all(),'idProducto','nombre','stock'),
+    'data' => ArrayHelper::map(app\models\Producto::find()->all(),'idProducto','nombre','stock'),
         
     'language' => 'es',
     'options' => ['placeholder' => 'Selecciona un producto'],

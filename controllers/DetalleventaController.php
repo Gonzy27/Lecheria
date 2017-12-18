@@ -84,6 +84,7 @@ class DetalleventaController extends Controller {
         }
         return $this->renderAjax('create', [
                     'model' => $model,
+                    'accion' => 'crear',
         ]);
     }
 
@@ -105,8 +106,9 @@ class DetalleventaController extends Controller {
             return $this->redirect(['venta/view', 'id' => $model->idVenta]);
         }
 
-        return $this->render('update', [
+        return $this->renderAjax('update', [
                     'model' => $model,
+                    'accion' => 'actualizar',
         ]);
     }
 
