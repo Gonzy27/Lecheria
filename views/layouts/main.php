@@ -9,7 +9,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-
+use yii\data\ActiveDataProvider;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -53,7 +53,11 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Cliente', 'url' => ['/cliente']],
-            ['label' => 'Producto', 'url' => ['/producto']],
+            ['label' => 'Producto', 'url' => ['/producto'], 'items' => [
+                        ['label' => 'Administrar Productos', 'url' => ['producto/index']],
+                        ['label' => 'Productos Más Vendidos', 'url' => ['producto/grafico']],
+                        ]
+                ],
             ['label' => 'Venta', 'url' => ['/venta'], 'items' => [
                         ['label' => 'Administrar Ventas', 'url' => ['venta/index']],
                         ['label' => 'Ventas diarias', 'url' => ['venta/resumen']],

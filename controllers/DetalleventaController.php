@@ -72,7 +72,7 @@ class DetalleventaController extends Controller {
             $producto = Producto::findOne($detalleVenta->idProducto);
             $producto->stock=$producto->stock+$detalleVenta->cantidad;
               $producto->save();
-             $model = $this->findModel($detalleVenta->idDetalle);
+              $model = $this->findModel($detalleVenta->idDetalle);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->precioFinal = $model->producto->precio * $model->cantidad;
@@ -95,7 +95,18 @@ class DetalleventaController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        
+    $model = $this->findModel($id);
+    $detalleVenta=Null;
+        if ($model->load(Yii::$app->request->post())){
+            $detalleVenta = \app\models\Detalleventa::findBySql("Select * from DetalleVenta d where d.idProducto = ".$model->idProducto." and  d.idVenta = ". $model->idVenta)->one();
+        }
+        if($detalleVenta!=NULL){
+            $producto = Producto::findOne($detalleVenta->idProducto);
+            $producto->stock=$producto->stock+$detalleVenta->cantidad;
+              $producto->save();
+              $model = $this->findModel($detalleVenta->idDetalle);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $model->precioFinal = 0;
             $model->precioFinal = $model->producto->precio * $model->cantidad;

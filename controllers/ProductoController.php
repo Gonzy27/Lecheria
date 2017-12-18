@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use yii\data\ActiveDataProvider;
     use kartik\mpdf\Pdf;
 /**
  * ProductoController implements the CRUD actions for Producto model.
@@ -148,6 +149,16 @@ public function actionReport() {
             'model' => $model,
         ]);
     }
+    public function actionGrafico()	{
+	$dataProvider = new ActiveDataProvider([
+		'query' => \app\models\Detalleventa::findBySql("SELECT * , SUM(detalleventa.cantidad) as cantidad FROM detalleventa JOIN producto WHERE detalleventa.idProducto = producto.idProducto GROUP BY detalleventa.idProducto "),
+	    'pagination' => false
+	]);
+	
+	return $this->render('pie', [
+		'dataProvider' => $dataProvider
+	]);
+}
 
     /**
      * Deletes an existing Producto model.
