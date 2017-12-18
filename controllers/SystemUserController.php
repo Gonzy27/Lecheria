@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+    use kartik\mpdf\Pdf;
+
 /**
  * SystemUserController implements the CRUD actions for SystemUser model.
  */
@@ -32,7 +34,7 @@ class SystemUserController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index','update','create','view','delete'],
-                        'allow' => true,
+                        'allow' => false,
                         'roles' => ['@'],
                         'matchCallback' => function ($rule,$action){
                             return \app\models\Systemuser::isUserAmin(Yii::$app->user->identity->username);
@@ -50,6 +52,43 @@ class SystemUserController extends Controller
         ];
     }
 
+public function actionReport() {
+    // get your HTML raw content without any layouts or scripts
+    $usuarios = SystemUser::find()->all();
+    $content = $this->renderPartial('reporte',[
+        'data' => $usuarios,
+    ]);
+    // setup kartik\mpdf\Pdf component
+    $pdf = new Pdf([
+        // set to use core fonts only
+        'mode' => Pdf::MODE_UTF8, 
+        // A4 paper format
+        //'format' => Pdf::FORMAT_A4, 
+        // portrait orientation
+        //'orientation' => Pdf::ORIENT_PORTRAIT, 
+        // stream to browser inline
+       // 'destination' => Pdf::DEST_BROWSER, 
+        // your html content input
+        'content' => $content,  
+        // format content from your own css file if needed or use the
+        // enhanced bootstrap css built by Krajee for mPDF formatting 
+        'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+        // any css to be embedded if required
+        'cssInline' => '.kv-heading-1{font-size:18px}', 
+         // set mPDF properties on the fly
+        'options' => ['title' => 'Lecheria Hanamichi'],
+         // call mPDF methods on the fly
+        'methods' => [ 
+            'SetHeader'=>['Lecheria'], 
+            'SetFooter'=>['Hanamichi'],
+        ]
+    ]);
+ 
+    // return the pdf output as per the destination setting
+    return $pdf->render(); 
+}
+
+  
     /**
      * Lists all SystemUser models.
      * @return mixed

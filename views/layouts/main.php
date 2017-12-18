@@ -47,6 +47,7 @@ AppAsset::register($this);
             ]);
            
             } else {
+                 if(\app\models\Systemuser::isUserSuperAmin(Yii::$app->user->identity->username)){
                  echo  Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
@@ -77,6 +78,36 @@ AppAsset::register($this);
                ],
             ]);
               
+            }else{
+                          echo  Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => [
+            ['label' => 'Inicio', 'url' => ['/site/index']],
+            ['label' => 'Cliente', 'url' => ['/cliente']],
+            
+            ['label' => 'Bitacora de Cambios', 'url' => ['/bitacora']],
+            ['label' => 'Producto', 'url' => ['/producto'], 'items' => [
+                        ['label' => 'Administrar Productos', 'url' => ['producto/index']],
+                        ['label' => 'Productos Más Vendidos', 'url' => ['producto/grafico']],
+                        ]
+                ],
+            ['label' => 'Venta', 'url' => ['/venta'], 'items' => [
+                        ['label' => 'Administrar Ventas', 'url' => ['venta/index']],
+                        ['label' => 'Ventas diarias', 'url' => ['venta/resumen']],
+                        ]
+             ],
+              
+                    '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Cerrar Sesión (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+               ],
+            ]);
+            }
             }
      NavBar::end();
     ?>

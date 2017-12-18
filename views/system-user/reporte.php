@@ -1,8 +1,3 @@
-<?php
-
-use app\models\VentaSearch;
-use app\models\Venta;
-?>
 <head>
       <link href="view/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
    <!-- DataTables CSS -->
@@ -23,44 +18,42 @@ use app\models\Venta;
     <link href="view/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <div id="page-wrapper">
-        
-                   <center><div class="panel panel-default">
-                 <div  class="panel-heading text-center">
-                     Ventas del dia : <?php                     echo date('d-m-Y');?>
-                        </div>
-                       </div>
-                           </center>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Lista de Usuarios
+                    </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
                         <?php if ($data != '') { ?>
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
-                                        <th>Rut CLiente</th>
-                                        <th>Nombre Cliente</th>
-                                        <th>Monto Total</th>
+                                        <th>ID</th>
+                                        <th>Nombres</th>
+                                        <th>Apellidos </th>
+                                        <th>Email</th>
+                                        <th>Telefono</th>
+                                        <th>Nombre usuario</th>
+                                        <th>Rol usuario</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     
-                                    <?php $i=0;
-                                    foreach ($data as $value):  ?>
+                                    <?php foreach ($data as $value):  ?>
                                         <tr class="odd gradeA">
                                             
-                                            <td><?php echo $value->cliente->rut; ?></td>
-                                            <td><?php echo $value->cliente->nombre ?></td>
-                                            <td><?php echo '$'.number_format(VentaSearch::getTotalDetalleValor($value)) ?></td>
+                                            <td><?php echo $value->id; ?></td>
+                                            <td><?php echo $value->first_name; ?></td>
+                                            <td><?php echo $value->last_name ?></td>
+                                            <td><?php echo $value->email ?></td>
+                                            <td><?php echo $value->phone_number ?></td>
+                                            <td><?php echo $value->username ?></td>
+                                            <td><?php echo $value->user_level ?></td>
                                      </tr>
                                     <?php endforeach; ?>
 
                                 </tbody>
-                                <tfoot>
-                                    <tr><td></td><th>Total a Pagar: </th><th><?php echo '$'.number_format(VentaSearch::getTotalDetalleDiarias()); ?></th></tr>
-                      
-                                </tfoot>
                             </table>
-                        
-                       
                             <?php
                         } else {
                             echo '<h1>No Hay Datos</h1>';
