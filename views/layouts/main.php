@@ -9,7 +9,6 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
-use yii\data\ActiveDataProvider;
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -53,6 +52,9 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Cliente', 'url' => ['/cliente']],
+            
+            ['label' => 'Bitacora de Cambios', 'url' => ['/bitacora']],
+            ['label' => 'Usuarios', 'url' => ['/system-user']],
             ['label' => 'Producto', 'url' => ['/producto'], 'items' => [
                         ['label' => 'Administrar Productos', 'url' => ['producto/index']],
                         ['label' => 'Productos Más Vendidos', 'url' => ['producto/grafico']],

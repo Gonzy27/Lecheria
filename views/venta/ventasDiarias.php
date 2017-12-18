@@ -9,6 +9,7 @@ use app\models\VentaSearch;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'ventas diarias';
+$this->params['breadcrumbs'][] = ['label' => 'Ventas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="compra-index">
@@ -53,6 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     
     <div align="right"><p>
-        <?= Html::a('Factura', ['facturadiaria'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Reporte', ['facturadiaria'], ['class' => 'btn btn-success']) ?>
     </p></div>  
 </div>

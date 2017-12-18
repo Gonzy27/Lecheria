@@ -140,8 +140,16 @@ public function actionReport() {
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $bitacora = new \app\models\Bitacora();
+        $bitacora->old_stock = $model->stock;
+        $bitacora->nombre = $model->nombre;
+        $bitacora->fecha=date('Y-m-d');
         
+            $bitacora->observaciones = "Cambio realizado por: ". Yii::$app->user->identity->username;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            $bitacora->new_stock = $model->stock;
+            $bitacora->save();
             return $this->redirect(['view', 'id' => $model->idProducto]);
         }
 
